@@ -30,7 +30,7 @@ class FeedbackMailer extends Mailable
      */
     public function build(): static
     {
-        return $this->from('rachuki@ukr.net', 'Поточний курс BTC до UAH')
+        return $this->from($_ENV['MAIL_FROM_ADDRESS'], 'Поточний курс BTC до UAH')
             ->subject('Поточний курс BTC до UAH')
             ->view('email.feedback', ['data' => $this->rate]);
     }

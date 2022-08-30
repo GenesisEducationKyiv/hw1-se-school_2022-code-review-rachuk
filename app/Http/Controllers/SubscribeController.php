@@ -6,6 +6,7 @@ use App\Http\Requests\SubscribeRequest;
 use App\Services\StorageService;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 class SubscribeController extends Controller
 {
@@ -21,10 +22,10 @@ class SubscribeController extends Controller
         if (isset($validatedData['email'])) {
             if ($service->isEmailExist($validatedData['email'])) {
                 $service->save($validatedData['email']);
-                return response()->json('E-mail додано');
+                return response()->json('E-mail added');
             }
 
-            return response()->json('Повертати, якщо e-mail вже є в базі даних (файловій)', 409);
+            return response()->json('E-mail already exists in a file', Response::HTTP_CONFLICT);
         }
 
         throw new BadRequestHttpException('Invalid email');

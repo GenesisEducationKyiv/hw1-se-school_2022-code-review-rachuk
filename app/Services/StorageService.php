@@ -41,7 +41,7 @@ class StorageService
     {
         $emails = explode("\n", $this->resource);
         foreach ($emails as $key => $email) {
-            if ($email == '') {
+            if ($email === '') {
                 unset($emails[$key]);
             }
         }

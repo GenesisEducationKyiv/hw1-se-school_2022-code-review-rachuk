@@ -20,14 +20,14 @@ class FeedbackController extends Controller
     public function send(CurrencyService $currencyService, StorageService $storageService): JsonResponse
     {
         $rate = $currencyService->getBTCToUAH();
-        if (null !== $rate) {
+        if ($rate !== null) {
             $emails = $storageService->getEmails();
 
             foreach ($emails as $email) {
                 Mail::to($email)->send(new FeedbackMailer($rate));
             }
 
-            return response()->json('E-mailʼи відправлено');
+            return response()->json('E-mails have been sent');
         }
 
         throw new BadRequestHttpException('No rate for now');
